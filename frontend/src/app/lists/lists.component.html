@@ -1,0 +1,209 @@
+<div class="container" *ngIf="!loading">
+    <mat-card class="list">
+        <h2>To do</h2>
+        <mat-card-content
+            cdkDropList
+            #toDo = "cdkDropList"
+            [cdkDropListData]="tasks[0]"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListConnectedTo]="[done]">
+            <mat-expansion-panel class="list-item" *ngFor="let task of tasks[0]" cdkDrag>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{task.text}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <hr>
+                <h6 *ngIf="task.repeat > 1">{{task.repeatDone}}/{{task.repeat}}</h6>
+                <section>
+                    <div class="day" title="Monday" style="margin-left: 0;" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('monday'), 'selected' : task.repeatWeek.includes('monday')}">
+                        <p class="weekdayText">M</p>
+                    </div>
+                    <div class="day" title="Tuesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('tuesday'), 'selected' : task.repeatWeek.includes('tuesday')}">
+                        <p class="weekdayText">T</p>
+                    </div>
+                    <div class="day" title="Wednesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('wednesday'), 'selected' : task.repeatWeek.includes('wednesday')}">
+                        <p class="weekdayText">W</p>
+                    </div>
+                    <div class="day no-margin-left-mobile" title="Thursday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('thursday'), 'selected' : task.repeatWeek.includes('thursday')}">
+                        <p class="weekdayText">T</p>
+                    </div>
+                    <div class="day" title="Friday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('friday'), 'selected' : task.repeatWeek.includes('friday')}">
+                        <p class="weekdayText">F</p>
+                    </div>
+                    <div class="day" title="Saturday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('saturday'), 'selected' : task.repeatWeek.includes('saturday')}">
+                        <p class="weekdayText">S</p>
+                    </div>
+                    <div class="day no-margin-left-mobile" title="Sunday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('sunday'), 'selected' : task.repeatWeek.includes('sunday')}">
+                        <p class="weekdayText">S</p>
+                    </div>
+                </section>
+                <button mat-raised-button style="margin-top: 5%;" color="primary" (click)="onEditArticle(task)">
+                    Edit
+                </button>
+                <button (click)="onProgress(task.id)" class="progressButton" mat-raised-button color="accent" *ngIf="task.repeat != 1 && task.repeatDone + 1 != task.repeat">Continue</button>
+                <button (click)="onProgress(task.id)" class="progressButton" mat-raised-button color="accent" *ngIf="task.repeat == 1 || task.repeatDone + 1 == task.repeat">Finish</button>
+            </mat-expansion-panel>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="onAddNewArticle()">Add a new task</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card
+        cdkDropList
+        #doing = "cdkDropList"
+        [cdkDropListData]="tasks[1]"
+        class="list"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListConnectedTo]="[done]">
+        <h2>Doing</h2>
+        <mat-expansion-panel class="list-item" *ngFor="let task of tasks[1]" cdkDrag>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{task.text}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <hr>
+            <h6 *ngIf="task.repeat > 1">{{task.repeatDone}}/{{task.repeat}}</h6>
+            <section style="margin-top: 3%;">
+                <div class="day" title="Monday" style="margin-left: 0;" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('monday'), 'selected' : task.repeatWeek.includes('monday')}">
+                    <p class="weekdayText">M</p>
+                </div>
+                <div class="day" title="Tuesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('tuesday'), 'selected' : task.repeatWeek.includes('tuesday')}">
+                    <p class="weekdayText">T</p>
+                </div>
+                <div class="day" title="Wednesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('wednesday'), 'selected' : task.repeatWeek.includes('wednesday')}">
+                    <p class="weekdayText">W</p>
+                </div>
+                <div class="day no-margin-left-mobile" title="Thursday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('thursday'), 'selected' : task.repeatWeek.includes('thursday')}">
+                    <p class="weekdayText">T</p>
+                </div>
+                <div class="day" title="Friday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('friday'), 'selected' : task.repeatWeek.includes('friday')}">
+                    <p class="weekdayText">F</p>
+                </div>
+                <div class="day" title="Saturday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('saturday'), 'selected' : task.repeatWeek.includes('saturday')}">
+                    <p class="weekdayText">S</p>
+                </div>
+                <div class="day no-margin-left-mobile" title="Sunday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('sunday'), 'selected' : task.repeatWeek.includes('sunday')}">
+                    <p class="weekdayText">S</p>
+                </div>
+            </section>
+            <button mat-raised-button style="margin-top: 5%;" color="primary" (click)="onEditArticle(task)">
+                Edit
+            </button>
+            <button (click)="onProgress(task.id)" class="progressButton" mat-raised-button color="accent" *ngIf="task.repeat != 1 && task.repeatDone + 1 != task.repeat">Continue</button>
+            <button (click)="onProgress(task.id)" class="progressButton" mat-raised-button color="accent" *ngIf="task.repeat == 1 || task.repeatDone + 1 == task.repeat">Finish</button>
+        </mat-expansion-panel>
+    </mat-card>
+    <mat-card
+        cdkDropList
+        #done = "cdkDropList"
+        [cdkDropListData]="tasks[2]"
+        class="list"
+        (cdkDropListDropped)="drop($event)">
+        <h2>Done</h2>
+        <mat-expansion-panel class="list-item" *ngFor="let task of tasks[2]" [class.disabled]="task.disabled">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{task.text}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <hr>
+            <h6 *ngIf="task.repeat > 1">{{task.repeatDone}}/{{task.repeat}}</h6>
+            <section style="margin-top: 3%;">
+                <div class="day" title="Monday" style="margin-left: 0;" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('monday'), 'selected' : task.repeatWeek.includes('monday')}">
+                    <p class="weekdayText">M</p>
+                </div>
+                <div class="day" title="Tuesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('tuesday'), 'selected' : task.repeatWeek.includes('tuesday')}">
+                    <p class="weekdayText">T</p>
+                </div>
+                <div class="day" title="Wednesday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('wednesday'), 'selected' : task.repeatWeek.includes('wednesday')}">
+                    <p class="weekdayText">W</p>
+                </div>
+                <div class="day no-margin-left-mobile" title="Thursday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('thursday'), 'selected' : task.repeatWeek.includes('thursday')}">
+                    <p class="weekdayText no-margin-left-mobile">T</p>
+                </div>
+                <div class="day" title="Friday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('friday'), 'selected' : task.repeatWeek.includes('friday')}">
+                    <p class="weekdayText">F</p>
+                </div>
+                <div class="day" title="Saturday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('saturday'), 'selected' : task.repeatWeek.includes('saturday')}">
+                    <p class="weekdayText">S</p>
+                </div>
+                <div class="day no-margin-left-mobile" title="Sunday" [ngClass]="{ 'unselected' : !task.repeatWeek.includes('sunday'), 'selected' : task.repeatWeek.includes('sunday')}">
+                    <p class="weekdayText no-margin-left-mobile">S</p>
+                </div>
+            </section>
+            <button mat-raised-button style="margin-top: 5%;" color="primary" (click)="onEditArticle(task)">
+                Edit
+            </button>
+        </mat-expansion-panel>
+    </mat-card>
+</div>
+<div class="container" *ngIf="loading">
+    <mat-card class="list">
+        <h2>To do</h2>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="onAddNewArticle()">Add a new task</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="list">
+        <h2>Doing</h2>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="list">
+        <h2>Done</h2>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+        <mat-card-content>
+            <mat-expansion-panel class="list-item" disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="loading"><div class="loader"></div></div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </mat-card-content>
+    </mat-card>
+</div>

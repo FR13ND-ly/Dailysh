@@ -1,0 +1,55 @@
+.day {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    min-width: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin-left: 20px;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.weekdayText {
+    margin: 2px 1px 8px 0;
+}
+
+.mat-slider {
+    width: 100%;
+}
+
+.reset-progress-button {
+    float: right;
+}
+
+.remove-task-button {
+    float: right; 
+    margin-left: 5%;
+}
+
+@media only screen and (max-width: 992px) {
+    .no-margin-left-mobile {
+        margin-left: 0;
+    }
+
+    .reset-progress-button {
+        margin-top: 5%;
+    }
+}

@@ -1,0 +1,90 @@
+.app-frame {
+    height: 100%;
+    overflow: auto;
+}
+
+mat-sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}
+
+mat-toolbar {
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.mat-sidenav {
+    width: 35%!important;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+h1 {
+    font-size: 250%;
+    margin-bottom: 10%;
+}
+
+.form-button {
+    width: 100%;
+    margin-bottom: 3%;
+}
+
+a {
+    cursor: pointer;
+}
+
+.underline {
+    color: #2196f3;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.background-image {
+    object-fit: cover; 
+    overflow: hidden;
+    height: 100%;
+    width: auto;
+}
+
+.sidenav-container {
+    margin: 25% 20% 0% 10%;
+}
+
+mat-sidenav-content{
+    overflow-y: hidden;
+    box-shadow: 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%), 0 11px 15px -7px rgb(0 0 0 / 20%); 
+}
+
+.hide-on-large {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+@media only screen and (max-width: 992px) {
+    mat-toolbar {
+        width: 150vw;
+    }
+    .hide-on-large {
+        display: block;
+    }
+    .mat-sidenav {
+        width: 100%!important;
+    }
+    .sidenav-container {
+        margin: 40% 10% 0% 10%;
+    }
+    h1 {
+        font-size: 30px;
+    }
+}

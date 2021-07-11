@@ -1,0 +1,70 @@
+<div class="app-frame mat-app-background" *ngIf="user.id != ''">
+  <mat-toolbar color="primary">
+    <span>Dailysh</span>
+    <button mat-raised-button color="accent">{{user.name}}</button>
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-icon-button (click)="onChangeTheme()">
+      <mat-icon *ngIf="isDarkTheme">brightness_5</mat-icon>
+      <mat-icon *ngIf="!isDarkTheme">brightness_4</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onLogout()"><mat-icon>logout</mat-icon></button>
+  </mat-toolbar>
+  <app-lists></app-lists>
+</div>
+
+<div class="app-frame mat-app-background" *ngIf="user.id == ''">
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+
+      <button mat-icon-button (click)="onChangeTheme()" style="position: absolute; right: 5%; top: 3%;">
+        <mat-icon *ngIf="isDarkTheme">brightness_5</mat-icon>
+        <mat-icon *ngIf="!isDarkTheme">brightness_4</mat-icon>
+      </button>
+      
+      <div class="sidenav-container">
+
+        <div *ngIf="loginOrRegister">
+          <h1>Welcome to Dailysh</h1>
+          <div class="login-form">
+          <form (submit)="onLogin(taskForm)" #taskForm="ngForm">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <mat-icon matSuffix>account_circle</mat-icon>
+              <input matInput name="username" ngModel #username required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <mat-icon matSuffix>lock</mat-icon>
+              <input matInput name="password" ngModel #password type="password" required minlength="6">
+            </mat-form-field>
+            <button mat-flat-button class="form-button" color="primary">Login</button>
+          </form>
+          <a (click)="loginOrRegister = false">New User? <a class="underline">Sign Up</a></a>
+          </div>
+        </div>
+
+        <div *ngIf="!loginOrRegister">
+          <h1>Register</h1>
+          <div class="login-form">
+          <form (submit)="onRegister(registerForm)" #registerForm="ngForm">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <mat-icon matSuffix>account_circle</mat-icon>
+              <input matInput name="username" ngModel #username required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <mat-icon matSuffix>lock</mat-icon>
+              <input matInput name="password" ngModel #password type="password" required minlength="6">
+            </mat-form-field>
+            <button mat-flat-button class="form-button" color="primary">Register</button>
+          </form>
+          <a (click)="loginOrRegister = true">Already have an account? <a class="underline">Log In</a></a>
+          </div>
+        </div>
+      </div>
+      <img src="https://d3dr2wyg3jyyh8.cloudfront.net/wp-uploads/uploads/2018/05/Material-Design-1.png" class="background-image hide-on-large">
+    </mat-sidenav>
+    <mat-sidenav-content><img src="https://d3dr2wyg3jyyh8.cloudfront.net/wp-uploads/uploads/2018/05/Material-Design-1.png" class="background-image"></mat-sidenav-content>
+  </mat-sidenav-container>  
+</div>

@@ -1,0 +1,50 @@
+<form #taskForm="ngForm" (submit)="onEditTask(taskForm)">
+    <section>
+        <mat-form-field class="example-full-width" appearance="fill" style="width: 100%;">
+            <mat-label>Enter a task</mat-label>
+            <input [(ngModel)]="task.text" matInput placeholder='Ex. "Do homework"' ngModel name="text" >
+        </mat-form-field>
+    </section>
+    <section>
+        <h4>Repeat per day</h4>
+        <mat-slider (input)="onChangeRepeat($event)" color="accent"  min="1" max="20" step="1" [(ngModel)]="task.repeat"  ngModel name="repeat" thumbLabel></mat-slider>
+        <h4>Repeat done</h4>
+        <mat-slider color="accent"  min="0" max="{{task.repeat}}" step="1" [(ngModel)]="task.repeatDone"  ngModel name="repeatDone" thumbLabel></mat-slider>
+    </section>
+    <section style="margin-bottom: 20px;">
+        <h4>Repeat per week</h4>
+        <input type="checkbox" style="display: none;" id="monday" name="monday" [(ngModel)]="monday">
+        <label title="Monday" for="monday" class="day" style="margin-left: 0%;" [ngClass]="{ 'unselected' : !monday, 'selected' : monday }">
+            <p class="weekdayText">M</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="tuesday" name="tuesday" [(ngModel)]="tuesday">
+        <label title="Tuesday" for="tuesday" class="day" [ngClass]="{ 'unselected' : !tuesday, 'selected' : tuesday }">
+            <p class="weekdayText">T</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="wednesday" name="wednesday" [(ngModel)]="wednesday">
+        <label title="Wednesday" for="wednesday" class="day" [ngClass]="{ 'unselected' : !wednesday, 'selected' : wednesday }">
+            <p class="weekdayText">W</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="thursday" name="thursday" [(ngModel)]="thursday">
+        <label title="Thursday" for="thursday" class="day" [ngClass]="{ 'unselected' : !thursday, 'selected' : thursday }">
+            <p class="weekdayText">T</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="friday" name="friday" [(ngModel)]="friday">
+        <label title="Friday" for="friday" class="day no-margin-left-mobile" [ngClass]="{ 'unselected' : !friday, 'selected' : friday }">
+            <p class="weekdayText">F</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="saturday" name="saturday" [(ngModel)]="saturday">
+        <label title="Monday" for="saturday" class="day" [ngClass]="{ 'unselected' : !saturday, 'selected' : saturday }">
+            <p class="weekdayText">S</p>
+        </label>
+        <input type="checkbox" style="display: none;" id="sunday" name="sunday" [(ngModel)]="sunday">
+        <label for="sunday" class="day" [ngClass]="{ 'unselected' : !sunday, 'selected' : sunday }">
+            <p class="weekdayText">S</p>
+        </label>
+    </section>
+    <section>
+        <button mat-raised-button color="accent" type="submit">Save</button>
+        <button mat-raised-button color="warn" type="button" class="remove-task-button" (click)="onRemoveTask(task.id, task.text)">Remove</button>
+        <button mat-raised-button color="primary" type="button" class="reset-progress-button" (click)="onResetProgress(task.id)" *ngIf="!task.disabled">Reset progress</button>
+    </section>
+</form>
